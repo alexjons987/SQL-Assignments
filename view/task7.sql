@@ -1,12 +1,11 @@
 DROP VIEW IF EXISTS latest_order;
 CREATE VIEW latest_order AS
-SELECT
-    customers.customer_id, customers.name, MAX(orders.order_date) AS latest_order_date
-FROM
-    customers
-JOIN
-	orders
-    ON orders.customer_id = customers.customer_id
-GROUP BY customers.customer_id;
+SELECT order_total.name, order_total.order_date, order_total.total_price
+FROM order_total
+WHERE
+	order_total.order_date =
+    (
+		SELECT MAX(order_date) FROM order_total WHERE name = order_total.name
+	);
     
 SELECT * FROM latest_order;
