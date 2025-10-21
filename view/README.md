@@ -80,7 +80,7 @@ INSERT INTO orders (customer_id, order_date)
             (3, '2024-06-20'),
             (2, '2024-07-04');
 
--- === order_row ===
+-- === ORDER ROW ===
 INSERT INTO order_row (order_id, product_id, amount)
     VALUES  (1, 1, 1),
             (1, 3, 2),
