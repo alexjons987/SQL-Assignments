@@ -25,7 +25,7 @@ CREATE TABLE orders
 (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
-    orderdatum DATE,
+    order_date DATE,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
@@ -68,7 +68,7 @@ INSERT INTO products (name, category, price)
             ('TV 55"', 'Electronics', 6999.00);
 
 -- === ORDERS ===
-INSERT INTO orders (customer_id, orderdatum)
+INSERT INTO orders (customer_id, order_date)
     VALUES  (1, '2023-11-20'),
             (2, '2023-11-21'),
             (3, '2023-11-22'),
