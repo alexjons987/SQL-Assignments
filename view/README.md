@@ -10,7 +10,7 @@ CREATE TABLE customers
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     city VARCHAR(50),
-    medlem_since DATE
+    member_since DATE
 );
 
 CREATE TABLE products
@@ -41,7 +41,7 @@ CREATE TABLE order_row
 
 USE store_system;
 -- === CUSTOMERS ===
-INSERT INTO customers (name, city, medlem_since)
+INSERT INTO customers (name, city, member_since)
     VALUES  ('Anna Svensson', 'Stockholm', '2021-03-15'),
             ('Erik Johansson', 'Gothenburg', '2020-08-22'),
             ('Maria Lind', 'Malmö', '2022-01-10'),
@@ -80,7 +80,7 @@ INSERT INTO orders (customer_id, orderdatum)
             (3, '2024-06-20'),
             (2, '2024-07-04');
 
--- === ORDER ROW ===
+-- === order_row ===
 INSERT INTO order_row (order_id, product_id, amount)
     VALUES  (1, 1, 1),
             (1, 3, 2),
