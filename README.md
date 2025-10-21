@@ -1,1 +1,1 @@
-# SQL-Assignments
+# SQL Assignments
