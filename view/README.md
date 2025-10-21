@@ -80,7 +80,7 @@ INSERT INTO orders (customer_id, orderdatum)
             (3, '2024-06-20'),
             (2, '2024-07-04');
 
--- === order_row ===
+-- === ORDER ROW ===
 INSERT INTO order_row (order_id, product_id, amount)
     VALUES  (1, 1, 1),
             (1, 3, 2),
@@ -108,74 +108,79 @@ INSERT INTO order_row (order_id, product_id, amount)
 
 ---
 
-### Task 1 – INNER JOIN: Patient and Province
-1. Display the patient's first name, last name and the full name of the province.
-2. Use `INNER JOIN` between the tables `patients` and `province_names`.
-3. The result should only display patients who have a valid `province_id`.
+### Task 1 – Simple view (customer_info)
+Create a view customer_info that shows the customer's name, city, and how many orders each customer has made.
+
+Use LEFT JOIN between CUSTOMERS and ORDERS and COUNT(order_id).
+
+Also show customers with 0 orders.
 
 ---
 
-### Task 2 – LEFT JOIN: Display all patients
-1. Display all patients even if they do not have a province associated with them.
-2. Use `LEFT JOIN` between `patients` and `province_names`.
-3. If the patient does not have a province, the `province_name` column should be `NULL`.
+### Task 2 – View with total order value (order_total)
+Create a view order_total that shows order_id, customer's name, order date and the total order value (price * quantity).
+
+Use JOIN between ORDERS, ORDER_LINE and PRODUCTS and GROUP BY order_id.
 
 ---
 
-### Task 3 – RIGHT JOIN: Display all provinces
-1. Display all provinces and matching patients.
-2. Use `RIGHT JOIN` between `patients` and `province_names`.
-3. If a province has no patients, the patient's name should be `NULL`.
+### Task 3 – View based on another view
+Create a view large_orders that shows only those orders from order_total where the total value exceeds 10,000 SEK.
 
 ---
 
-### Task 4 – FULL JOIN (simulated in MySQL)
-1. MySQL does NOT have `FULL JOIN`, so use `UNION`.
-2. Combine the results of a `LEFT JOIN` and a `RIGHT JOIN`.
-3. Show **all patients and all provinces** – even those without a match.
+### Task 4 – View with categorical sales (category_statistics)
+Create a view category_statistics that shows each product category with total sales and average product price.
+
+Use GROUP BY category.
 
 ---
 
-### Task 5 – INNER JOIN: Patient and Appointment
-1. Show the patient’s **first name**, **last name**, and the **date** of their appointment.
-2. Use `INNER JOIN` between `patients` and `appointments`.
-3. Show only patients who actually have an appointment.
+### Task 5 – View for best-selling products (top_products)
+Create a view top_products that displays product name and total number of sold units, sorted descending.
+
+Limit the result to the top 5 with LIMIT 5.
 
 ---
 
-### Task 6 – LEFT JOIN: Patients without an appointment
-1. Show **all patients**, even those without an appointment.
-2. Use `LEFT JOIN` between `patients` and `appointments`.
-3. If the patient has no appointment, the `date` column should be `NULL`.
+### Task 6 – View that combines multiple views
+Create a view customer_analysis that combines customer_info and order_total to display the customer's total order count and total amount spent.
+
+Tip: use a subquery or join on customer_id.
 
 ---
 
-### Task 7 – RIGHT JOIN: Doctors and patients
-1. Show **all doctors** and the patients they have appointments with.
-2. Use `RIGHT JOIN` between `appointments` and `doctors`.
-3. Use `LEFT JOIN` between `appointments` and `patients`.
-4. If the doctor has no appointments, the patient’s name should be `NULL`.
-5. Show the columns: `doctor_name`, `patient_first_name`, `patient_last_name`.
+### Task 7 – View with latest purchase (last_order)
+Create a view last_order that displays each customer's latest order date and order value.
+
+Use a subquery to retrieve MAX(order_date) per customer.
 
 ---
 
-### Task 8 – FULL JOIN: All patients and all doctors
-1. Show all patients and all doctors (even if they don’t have appointments).
-2. Use `UNION` to combine `LEFT JOIN`s and `RIGHT JOIN`s.
-3. Show the columns: `patient_name`, `doctor_name`, `date`.
+### Task 8 – View with average value per customer (customer_average)
+Create a view customer_average that displays the customer's name, number of orders, and average order value.
+
+Use a JOIN between CUSTOMERS, ORDERS, ORDER_LINES, and PRODUCTS.
+
+Filter with HAVING COUNT(order_id) > 0.
 
 ---
 
-### Task 9 – JOIN with WHERE condition
-1. Show all patients who **live in Ontario**.
-2. Use `INNER JOIN` between `patients` and `province_names`.
-3. Filter with `WHERE province_name = "Ontario"`.
-4. Show the columns: `first_name`, `last_name`, `province_name`.
+### Task 9 – View with returning customers (returning_customers)
+Create a view returning_customers that shows all customers who have placed more than 2 orders.
+
+Use GROUP BY customer_id and HAVING COUNT(order_id) > 2.
 
 ---
 
-### Task 10 – Multiple JOINs (3 tables)
-1. Show the **patient name**, **doctor name** and **date** of appointment.
-2. Use `INNER JOIN` between `appointments`, `patients` and `doctors`.
-3. Sort the results by date (from earliest to latest).
-4. Show the columns: `first_name`, `last_name`, `doctor_name`, `date`.
+### Task 10 – View for reporting (sales report)
+Create a view sales report that shows:
+* customer name,
+* city,
+* number of orders,
+* total spent,
+* average order value.
+
+Use a combination of SUM, COUNT and AVG in a GROUP BY.
+
+Sort the result by total spent in descending order.
