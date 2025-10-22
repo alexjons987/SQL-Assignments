@@ -41,7 +41,7 @@ CREATE TABLE order_row
 
 USE store_system;
 -- === CUSTOMERS ===
-INSERT INTO customers (name, city, member_since)
+`INSERT` INTO customers (name, city, member_since)
     VALUES  ('Anna Svensson', 'Stockholm', '2021-03-15'),
             ('Erik Johansson', 'Gothenburg', '2020-08-22'),
             ('Maria Lind', 'Malmö', '2022-01-10'),
@@ -55,7 +55,7 @@ INSERT INTO customers (name, city, member_since)
             ('Tomas Pettersson', 'Kalmar', '2023-09-28');
 
 -- === PRODUCTS ===
-INSERT INTO products (name, category, price)
+`INSERT` INTO products (name, category, price)
     VALUES  ('Laptop 15"', 'Electronics', 9999.00),
             ('Smartphone', 'Electronics', 7499.00),
             ('Headphones', 'Electronics', 1299.00),
@@ -68,7 +68,7 @@ INSERT INTO products (name, category, price)
             ('TV 55"', 'Electronics', 6999.00);
 
 -- === ORDERS ===
-INSERT INTO orders (customer_id, order_date)
+`INSERT` INTO orders (customer_id, order_date)
     VALUES  (1, '2023-11-20'),
             (2, '2023-11-21'),
             (3, '2023-11-22'),
@@ -81,7 +81,7 @@ INSERT INTO orders (customer_id, order_date)
             (2, '2024-07-04');
 
 -- === ORDER ROW ===
-INSERT INTO order_row (order_id, product_id, amount)
+`INSERT` INTO order_row (order_id, product_id, amount)
     VALUES  (1, 1, 1),
             (1, 3, 2),
             (2, 2, 1),
@@ -109,22 +109,22 @@ INSERT INTO order_row (order_id, product_id, amount)
 ---
 
 ### Task 1 – A simple transaction
-Create a transaction that adds a new customer to the customers table.
+Create a transaction that adds a new customer to the `customers` table.
 
-If INSERT succeeds, COMMIT.
+If `INSERT` succeeds, `COMMIT`.
 
-If it fails, ROLLBACK.
+If it fails, `ROLLBACK`.
 
-Tip: Use START TRANSACTION, INSERT INTO, COMMIT, and ROLLBACK.
+Tip: Use `START TRANSACTION`, `INSERT` INTO, `COMMIT`, and `ROLLBACK`.
 
 ---
 
 ### Task 2 – Two steps in the same transaction
-Add a new order to orders and the corresponding rows in order_row.
+Add a new order to `orders` and the corresponding rows in `order_row`.
 
 Both should either be saved or rolled back if something goes wrong.
 
-Tip: Try creating an error (e.g. invalid product_id) and see that ROLLBACK removes everything.
+Tip: Try creating an error (e.g. invalid `product_id`) and see that `ROLLBACK` removes everything.
 
 ---
 
@@ -133,44 +133,44 @@ Create a transaction that attempts to:
 1. Update a product price in products.
 2. Add a new order that uses the product.
 
-If the price update succeeds but the INSERT into the order fails → roll back both.
+If the price update succeeds but the `INSERT` into the order fails → roll back both.
 
 ---
 
-### Task 4 – Use SAVEPOINT
+### Task 4 – Use `SAVEPOINT`
 Create a transaction where you:
-1. Insert a new customer.
-2. Sets a SAVEPOINT.
-3. Inserts a new order.
-4. ROLLBACK TO SAVEPOINT so that only the order is deleted, but the customer remains.
+1. `INSERT` a new customer.
+2. Sets a `SAVEPOINT`.
+3. `INSERT`s a new order.
+4. `ROLLBACK` TO `SAVEPOINT` so that only the order is deleted, but the customer remains.
 
-Finish with COMMIT.
+Finish with `COMMIT`.
 
 ---
 
 ### Task 5 – Increase prices within a category
 Create a transaction that increases the price of all products in the "Clothing" category by 10%.
 
-Use START TRANSACTION, UPDATE, and COMMIT.
+Use `START TRANSACTION`, UPDATE, and `COMMIT`.
 
-If you want to undo the change – use ROLLBACK.
+If you want to undo the change – use `ROLLBACK`.
 
 ---
 
-### Task 6 – Partial rollback with SAVEPOINT
+### Task 6 – Partial `ROLLBACK` with `SAVEPOINT`
 Create a transaction that:
 1. Increases the price of all products in the "Household" category by 5%.
-2. Sets a SAVEPOINT.
+2. Sets a `SAVEPOINT`.
 3. Increases the price of all products in "Electronics" by 10%.
-4. Undoes only step 3 with ROLLBACK TO SAVEPOINT.
-5. Saves the household change with COMMIT.
+4. Undoes only step 3 with `ROLLBACK TO SAVEPOINT`.
+5. Saves the household change with `COMMIT`.
 
 ---
 
 ### Task 7 – Two steps in the same transaction
 Create a transaction that in the same block:
 1. Updates the price of a product.
-2. Adds a new order to the orders table.
+2. Adds a new order to the `orders` table.
 
 Both steps should either be saved or rolled back together.
 
@@ -178,27 +178,27 @@ Both steps should either be saved or rolled back together.
 
 ### Task 8 – Create customer and order at the same time
 Create a transaction that:
-1. Adds a new customer to customers.
-2. Creates a new order for that customer in orders.
+1. Adds a new customer to `customers`.
+2. Creates a new order for that customer in `orders`.
 
 If any step fails, nothing should be saved.
 
 ---
 
-### Task 9 – Test rollback on error
-Create a transaction that attempts to add an order and an order line.
+### Task 9 – Test `ROLLBACK` on error
+Create a transaction that attempts to add an order and an order row.
 
-Use an invalid product_id in the order line to create an error.
+Use an invalid `product_id` in the order line to create an error.
 
-See how MySQL automatically aborts and how you can roll back with ROLLBACK.
+See how MySQL automatically aborts and how you can roll back with `ROLLBACK`.
 
 ---
 
 ### Task 10 – Procedure with transaction
 Create a stored procedure that:
 1. Starts a transaction.
-2. Adds a new order to orders.
-3. Adds a row to order_row.
-4. Ends with COMMIT.
+2. Adds a new order to `orders`.
+3. Adds a row to `order_row`.
+4. Ends with `COMMIT`.
 
 The procedure should be able to be run with parameters for customer, product and quantity.
