@@ -115,7 +115,7 @@ If `INSERT` succeeds, `COMMIT`.
 
 If it fails, `ROLLBACK`.
 
-Tip: Use `START TRANSACTION`, `INSERT` INTO, `COMMIT`, and `ROLLBACK`.
+Tip: Use `START TRANSACTION`, `INSERT INTO`, `COMMIT`, and `ROLLBACK`.
 
 ---
 
@@ -139,10 +139,10 @@ If the price update succeeds but the `INSERT` into the order fails → roll back
 
 ### Task 4 – Use `SAVEPOINT`
 Create a transaction where you:
-1. `INSERT` a new customer.
+1. Insert a new customer.
 2. Sets a `SAVEPOINT`.
-3. `INSERT`s a new order.
-4. `ROLLBACK` TO `SAVEPOINT` so that only the order is deleted, but the customer remains.
+3. Insert a new order.
+4. `ROLLBACK TO SAVEPOINT` so that only the order is deleted, but the customer remains.
 
 Finish with `COMMIT`.
 
