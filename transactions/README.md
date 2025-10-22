@@ -151,7 +151,7 @@ Finish with `COMMIT`.
 ### Task 5 – Increase prices within a category
 Create a transaction that increases the price of all products in the "Clothing" category by 10%.
 
-Use `START TRANSACTION`, UPDATE, and `COMMIT`.
+Use `START TRANSACTION`, `UPDATE`, and `COMMIT`.
 
 If you want to undo the change – use `ROLLBACK`.
 
