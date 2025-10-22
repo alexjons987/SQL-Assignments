@@ -22,3 +22,4 @@ JOIN
 JOIN
 	order_row
     ON order_row.order_id = orders.order_id;
+    

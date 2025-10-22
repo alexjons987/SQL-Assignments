@@ -140,7 +140,7 @@ If the price update succeeds but the `INSERT` into the order fails → roll back
 ### Task 4 – Use `SAVEPOINT`
 Create a transaction where you:
 1. Insert a new customer.
-2. Sets a `SAVEPOINT`.
+2. Set a `SAVEPOINT`.
 3. Insert a new order.
 4. `ROLLBACK TO SAVEPOINT` so that only the order is deleted, but the customer remains.
 
@@ -160,7 +160,7 @@ If you want to undo the change – use `ROLLBACK`.
 ### Task 6 – Partial `ROLLBACK` with `SAVEPOINT`
 Create a transaction that:
 1. Increases the price of all products in the "Household" category by 5%.
-2. Sets a `SAVEPOINT`.
+2. Set a `SAVEPOINT`.
 3. Increases the price of all products in "Electronics" by 10%.
 4. Undoes only step 3 with `ROLLBACK TO SAVEPOINT`.
 5. Saves the household change with `COMMIT`.
@@ -169,8 +169,8 @@ Create a transaction that:
 
 ### Task 7 – Two steps in the same transaction
 Create a transaction that in the same block:
-1. Updates the price of a product.
-2. Adds a new order to the `orders` table.
+1. Update the price of a product.
+2. Add a new order to the `orders` table.
 
 Both steps should either be saved or rolled back together.
 
