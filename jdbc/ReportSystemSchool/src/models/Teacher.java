@@ -1,3 +1,5 @@
+package models;
+
 public class Teacher {
     private final int teacherId;
     private final String name;

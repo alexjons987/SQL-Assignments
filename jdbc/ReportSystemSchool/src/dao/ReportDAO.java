@@ -1,3 +1,9 @@
+package dao;
+
+import models.Course;
+import models.CourseTeacher;
+import models.Student;
+
 import java.util.List;
 
 public interface ReportDAO {
@@ -5,16 +11,16 @@ public interface ReportDAO {
     List<Student> getAllStudents();
 
     // 2. Show average grade per course
-    void showAvgGradePerCourse();
+    List<Course> getAvgGradePerCourse();
     
     // 3. Show courses and their teacher
-    void showAllCourses();
+    List<CourseTeacher> getAllCourses();
     
     // 4. Show students' average grades
-    void showStudentAvgGrades();
+    List<Student> getStudentAvgGrades();
     
     // 5. Show top 3 students
-    void showTopThreeStudents();
+    List<Student> getTopThreeStudents();
 
     // 6. Show all courses with the highest and lowest grades
     void showAllCoursesMinMaxGrades();

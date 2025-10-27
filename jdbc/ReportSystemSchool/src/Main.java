@@ -1,3 +1,9 @@
+import dao.ReportDAOImpl;
+import models.Course;
+import models.CourseTeacher;
+import models.Student;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,23 +31,40 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("- Average grade (per course) -");
-                    reportDAO.showAvgGradePerCourse();
+                    List<Course> courses = reportDAO.getAvgGradePerCourse();
+                    for (Course course : courses) {
+                        System.out.printf("%s %.2f%n", course.getCourseName(), course.getAverageGrade());
+                    }
                     break;
                 case 3:
                     System.out.println("- All courses -");
-                    reportDAO.showAllCourses();
+                    List<CourseTeacher> courseTeachers = reportDAO.getAllCourses();
+                    courseTeachers.forEach(System.out::println);
                     break;
                 case 4:
                     System.out.println("- Students' average grades -");
-                    reportDAO.showStudentAvgGrades();
+                    List<Student> studentAverages = reportDAO.getStudentAvgGrades();
+                    for (Student studentAvg : studentAverages) {
+                        if (studentAvg.getAverageGrade() == -1.0f) {
+                            System.out.printf("%s %s", studentAvg.getName(), "No grades");
+                        } else {
+                            System.out.printf("%s %.2f%n", studentAvg.getName(), studentAvg.getAverageGrade());
+                        }
+                    }
                     break;
                 case 5:
                     System.out.println("- Top performing students -");
-                    reportDAO.showTopThreeStudents();
+                    List<Student> studentTopAverages = reportDAO.getTopThreeStudents();
+                    for (Student studentAvg : studentTopAverages) {
+                        if (studentAvg.getAverageGrade() == -1.0f) {
+                            System.out.printf("%s %s", studentAvg.getName(), "No grades");
+                        } else {
+                            System.out.printf("%s %.2f%n", studentAvg.getName(), studentAvg.getAverageGrade());
+                        }
+                    }
                     break;
                 case 6:
                     System.out.println("- Highest/Lowest grade per course -");
-                    reportDAO.showAllCoursesMinMaxGrades();
                     break;
             }
         } while (menuChoice != 0);
