@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface ReportDAO {
     // 1. Show all students
-    List<Student> showAllStudents();
+    List<Student> getAllStudents();
 
     // 2. Show average grade per course
     void showAvgGradePerCourse();

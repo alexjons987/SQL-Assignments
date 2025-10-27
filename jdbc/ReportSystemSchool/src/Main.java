@@ -20,22 +20,27 @@ public class Main {
             switch (menuChoice) {
                 case 1:
                     System.out.println("- All students -");
-                    List<Student> students = reportDAO.showAllStudents();
+                    List<Student> students = reportDAO.getAllStudents();
                     students.forEach(System.out::println);
                     break;
                 case 2:
+                    System.out.println("- Average grade (per course) -");
                     reportDAO.showAvgGradePerCourse();
                     break;
                 case 3:
+                    System.out.println("- All courses -");
                     reportDAO.showAllCourses();
                     break;
                 case 4:
+                    System.out.println("- Students' average grades -");
                     reportDAO.showStudentAvgGrades();
                     break;
                 case 5:
+                    System.out.println("- Top performing students -");
                     reportDAO.showTopThreeStudents();
                     break;
                 case 6:
+                    System.out.println("- Highest/Lowest grade per course -");
                     reportDAO.showAllCoursesMinMaxGrades();
                     break;
             }

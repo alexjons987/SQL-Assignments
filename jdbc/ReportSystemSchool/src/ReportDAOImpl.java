@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ReportDAOImpl implements ReportDAO {
     // 1. Show all students
-    public List<Student> showAllStudents() {
+    public List<Student> getAllStudents() {
         String sqlQuery = "SELECT * FROM students";
 
         try (
@@ -36,7 +36,29 @@ public class ReportDAOImpl implements ReportDAO {
 
     // 2. Show average grade per course
     public void showAvgGradePerCourse() {
+        String sqlQuery = """
+                SELECT
+                	course_name, AVG(grade) as avg_grade
+                FROM
+                	courses
+                JOIN
+                	enrollments
+                    ON enrollments.course_id = courses.course_id
+                GROUP BY course_name
+                """;
 
+        try (
+                Connection conn = Database.getConnection();
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sqlQuery)
+        ) {
+            System.out.println("course_name | avg_grade");
+            while (rs.next()) {
+                System.out.printf("%s | %.2f%n", rs.getString("course_name"), rs.getFloat("avg_grade"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // 3. Show courses and their teacher
