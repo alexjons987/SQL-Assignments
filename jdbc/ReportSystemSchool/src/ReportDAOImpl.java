@@ -8,7 +8,7 @@ import java.util.List;
 public class ReportDAOImpl implements ReportDAO {
     // 1. Show all students
     public List<Student> getAllStudents() {
-        String sqlQuery = "SELECT * FROM students";
+        String sqlQuery = "SELECT * FROM students ORDER BY name ASC";
 
         try (
                 Connection conn = Database.getConnection();
@@ -38,13 +38,13 @@ public class ReportDAOImpl implements ReportDAO {
     public void showAvgGradePerCourse() {
         String sqlQuery = """
                 SELECT
-                	course_name, AVG(grade) as avg_grade
+                	course_name, AVG(grade) AS avg_grade
                 FROM
                 	courses
                 JOIN
                 	enrollments
                     ON enrollments.course_id = courses.course_id
-                GROUP BY course_name
+                GROUP BY course_name ORDER BY avg_grade DESC;
                 """;
 
         try (
