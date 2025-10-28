@@ -1,4 +1,4 @@
-package dao;
+package interfaces;
 
 import models.Course;
 import models.CourseTeacher;
@@ -23,5 +23,5 @@ public interface ReportDAO {
     List<Student> getTopThreeStudents();
 
     // 6. Show all courses with the highest and lowest grades
-    void showAllCoursesMinMaxGrades();
+    void getAllCoursesMinMaxGrades();
 }

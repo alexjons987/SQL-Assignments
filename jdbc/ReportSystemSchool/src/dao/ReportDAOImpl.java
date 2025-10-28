@@ -1,6 +1,7 @@
 package dao;
 
 import db.Database;
+import interfaces.ReportDAO;
 import models.Course;
 import models.CourseTeacher;
 import models.Student;
@@ -54,12 +55,12 @@ public class ReportDAOImpl implements ReportDAO {
                 GROUP BY course_id, course_name ORDER BY avg_grade DESC;
                 """;
 
+        List<Course> courses = new ArrayList<>();
         try (
                 Connection conn = Database.getConnection();
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery)
         ) {
-            List<Course> courses = new ArrayList<>();
 
             while (rs.next()) {
                 courses.add(
@@ -71,34 +72,34 @@ public class ReportDAOImpl implements ReportDAO {
                         )
                 );
             }
-            return courses;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return courses;
     }
 
     // 3. Show courses and their teacher
     public List<CourseTeacher> getAllCourses() {
         String sqlQuery = """
                 SELECT
-                	course_name, teachers.name
+                	courses.course_id, course_name, teachers.name
                 FROM
                 	courses
-                JOIN
+                LEFT JOIN
                 	course_teachers
-                    ON course_teachers.course_id = courses.course_id
-                JOIN
+                	ON course_teachers.course_id = courses.course_id
+                LEFT JOIN
                 	teachers
-                    ON teachers.teacher_id = course_teachers.teacher_id
+                	ON teachers.teacher_id = course_teachers.teacher_id
                 ORDER BY course_name ASC;
                 """;
 
+        List<CourseTeacher> courseTeachers = new ArrayList<>();
         try (
                 Connection conn = Database.getConnection();
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery)
         ) {
-            List<CourseTeacher> courseTeachers = new ArrayList<>();
 
             while (rs.next()) {
                 courseTeachers.add(
@@ -108,10 +109,10 @@ public class ReportDAOImpl implements ReportDAO {
                         )
                 );
             }
-            return courseTeachers;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return courseTeachers;
     }
 
     // 4. Show students' average grades
@@ -127,12 +128,12 @@ public class ReportDAOImpl implements ReportDAO {
                 GROUP BY students.student_id;
                 """;
 
+        List<Student> students = new ArrayList<>();
         try (
                 Connection conn = Database.getConnection();
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery)
         ) {
-            List<Student> students = new ArrayList<>();
 
             while (rs.next()) {
                 students.add(
@@ -146,10 +147,10 @@ public class ReportDAOImpl implements ReportDAO {
                 );
             }
 
-            return students;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return students;
     }
 
     // 5. Show top 3 students
@@ -165,12 +166,13 @@ public class ReportDAOImpl implements ReportDAO {
                 GROUP BY students.student_id ORDER BY avg_grade DESC LIMIT 3;
                 """;
 
+        List<Student> students = new ArrayList<>();
         try (
                 Connection conn = Database.getConnection();
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery)
         ) {
-            List<Student> students = new ArrayList<>();
+
 
             while (rs.next()) {
                 students.add(
@@ -184,14 +186,14 @@ public class ReportDAOImpl implements ReportDAO {
                 );
             }
 
-            return students;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return students;
     }
 
     // 6. Show all courses with the highest and lowest grades
-    public void showAllCoursesMinMaxGrades() {
-
+    public void getAllCoursesMinMaxGrades() {
+        System.out.println("[NOT IMPLEMENTED]");
     }
 }

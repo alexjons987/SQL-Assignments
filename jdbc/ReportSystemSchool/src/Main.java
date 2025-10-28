@@ -1,9 +1,11 @@
+import dao.CourseDAOImpl;
 import dao.ReportDAOImpl;
+import dao.StudentDAOImpl;
+import dao.TeacherDAOImpl;
 import models.Course;
 import models.CourseTeacher;
 import models.Student;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +13,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ReportDAOImpl reportDAO = new ReportDAOImpl();
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
+        CourseDAOImpl courseDAO = new CourseDAOImpl();
+        TeacherDAOImpl teacherDAO = new TeacherDAOImpl();
 
         int menuChoice;
         do {
@@ -20,8 +25,10 @@ public class Main {
             System.out.println("4. Show students' average grades");
             System.out.println("5. Show top 3 students");
             System.out.println("6. Show all courses with the highest and lowest grades");
+            System.out.println("7. Add student");
+            System.out.println("8. Add course");
             System.out.println("0. Exit");
-            menuChoice = readInt(scanner, 0, 6);
+            menuChoice = readInt(scanner, 0, 16);
 
             switch (menuChoice) {
                 case 1:
@@ -66,6 +73,60 @@ public class Main {
                 case 6:
                     System.out.println("- Highest/Lowest grade per course -");
                     break;
+                case 7:
+                    System.out.println("- Add a student -");
+                    System.out.println("Enter student name");
+                    String studentName = readString(scanner, false);
+                    System.out.println("Enter student age");
+                    int studentAge = readInt(scanner, -100, 100);
+                    System.out.println("Enter student city");
+                    String studentCity = readString(scanner, false);
+                    studentDAO.addStudent(studentName, studentAge, studentCity);
+                    break;
+                case 8:
+                    System.out.println("- Add a course -");
+                    System.out.println("Enter course name");
+                    String courseName = readString(scanner, false);
+                    System.out.println("Enter course credits");
+                    int courseCredits = readInt(scanner, -100, 100);
+                    courseDAO.addCourse(courseName, courseCredits);
+                    break;
+                case 9:
+                    System.out.println("- Add a teacher -");
+                    System.out.println("Enter teacher name");
+                    String teacherName = readString(scanner, false);
+                    System.out.println("Enter department");
+                    String teacherDepartment = readString(scanner, false);
+                    teacherDAO.addTeacher(teacherName, teacherDepartment);
+                    break;
+                case 10:
+                    System.out.println("- Assign teacher to course -");
+                    reportDAO.getAllCourses();
+                    System.out.println("Pick a course ID");
+                    int courseId = scanner.nextInt();
+                    reportDAO.getAllTeachers();
+                    System.out.println("Pick a teacher ID");
+                    int teacherId = scanner.nextInt();
+                    courseDAO.assignTeacherToCourse(courseId, teacherId);
+                    break;
+                case 11:
+                    System.out.println("- Update student city -");
+                    break;
+                case 12:
+                    System.out.println("- Update course credits -");
+                    break;
+                case 13:
+                    System.out.println("- Update student name -");
+                    break;
+                case 14:
+                    System.out.println("- Delete student -");
+                    break;
+                case 15:
+                    System.out.println("- Delete course -");
+                    break;
+                case 16:
+                    System.out.println("- Remove teacher from course -");
+                    break;
             }
         } while (menuChoice != 0);
         System.out.println("Goodbye!");
@@ -82,6 +143,21 @@ public class Main {
             } catch (NumberFormatException ignored) {
             }
             System.out.printf("Please enter a number %d - %d.%n", min, max);
+        }
+    }
+
+    private static String readString(Scanner sc, boolean allowEmptyInput) {
+        while (true) {
+            System.out.print("> ");
+            String userInput = sc.nextLine().trim();
+            try {
+                if (!allowEmptyInput && userInput.isEmpty()) {
+                    throw new Exception("User input was empty when not allowed.");
+                } else {
+                    return userInput;
+                }
+            } catch (Exception ignored) {}
+            System.out.println("Input cannot be empty.");
         }
     }
 }
